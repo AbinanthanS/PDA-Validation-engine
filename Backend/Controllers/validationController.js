@@ -1,3 +1,4 @@
+/*
 exports.validate = (req, res) => {
   const payload = req.decryptedPayload;
 
@@ -16,4 +17,19 @@ exports.validate = (req, res) => {
     meta: req._meta,
     sample: (type === 'object') ? Object.keys(payload).slice(0, 10) : undefined
   });
+};
+*/
+const { runPDA } = require('../PDA-engine/pdaEngine');
+const { tokenize } = require('../Utils/tokenizer');
+
+exports.validatePayload = (req, res) => {
+  try {
+    const payload = req.decryptedPayload;
+    const tokens = tokenize(payload);
+    const result = runPDA(tokens);
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
