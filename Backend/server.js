@@ -4,7 +4,7 @@ const validateRoute = require('./Routes/validate');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.use(bodyparser.json());
+app.use(express.text({ type: 'application/json' }));
 
 app.use('/validate', validateRoute);
 
