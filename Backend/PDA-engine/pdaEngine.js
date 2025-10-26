@@ -1,4 +1,3 @@
-// pdaEngine.js
 exports.runPDA = function (tokens) {
   const stack = [];
   const transitions = [];
@@ -7,7 +6,6 @@ exports.runPDA = function (tokens) {
   let valid = true;
   let error = "";
 
-  // ===== Helper functions =====
   const recordTransition = (token, prevState, nextState, stackBefore, action, error = null) => {
     transitions.push({
       token,
@@ -25,7 +23,6 @@ exports.runPDA = function (tokens) {
 
   const top = () => stack[stack.length - 1];
 
-  // ===== Main loop =====
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
     const prevState = state;
