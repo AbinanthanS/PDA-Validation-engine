@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyparser = require('body-parser');
 const validateRoute = require('./Routes/validate');
 const PORT = process.env.PORT || 3000;
 const app = express();
