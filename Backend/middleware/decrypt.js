@@ -12,22 +12,21 @@ const decryptMiddleware = (req, res, next) => {
       return res.status(400).json({ error: "Missing 'encryptedData' in request body" });
     }
 
-    //Create AES decipher
-    const decipher = crypto.createDecipheriv(ALGORITHM, Buffer.from(SECRET_KEY), IV);
+    const decipher = crypto.createDecipheriv(ALGORITHM, Buffer.from(SECRET_KEY), IV);  //AES decipher
 
-    //Decrypt Base64 text -> UTF8 plaintext
+    //Decrypts Base64 text -> UTF8 plaintext
     let decrypted = decipher.update(encryptedData, "base64", "utf8");
     decrypted += decipher.final("utf8");
 
-    //Parse decrypted JSON string
+    //parses decrypted json string
     try {
       req.decryptedData = JSON.parse(decrypted);
     } catch (e) {
       return res.status(400).json({ error: "Decryption succeeded, but JSON parsing failed" });
     }
 
-    //Proceed to PDA validation
-    next();
+    next(); //this will Proceed to PDA validation
+    
   } catch (err) {
     console.error("Decryption error:", err.message);
     return res.status(500).json({ error: "Decryption failed", details: err.message });
