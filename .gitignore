@@ -5,7 +5,7 @@ backend/node_modules/
 backend/*.env
 backend/logs/
 backend/*.log
-
+backend/encrypt.js
 # =========================
 # React / Frontend
 # =========================
