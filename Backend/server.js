@@ -7,7 +7,6 @@ app.use(express.json());
 
 app.use('/validate', validateRoute);
 
-//to check if body parser is working
 /*
 app.post('/data',(req,res) => {
   console.log(req.body);
