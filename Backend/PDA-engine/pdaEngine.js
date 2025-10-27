@@ -31,9 +31,10 @@ exports.runPDA = function (tokens) {
     let action = "";
 
 
+    //edge case: already accepted but more tokens
     if (state === "q_accept") {
       valid = false;
-      error = `Extra content detected after valid JSON structure (unexpected token: ${token})`;
+      error = `Extra content detected in the JSON structure (unexpected token: ${token})`;
       state = "q_error";
       action = `ERROR: ${error}`;
       recordTransition(token, prevState, state, stackBefore, action, error);
@@ -41,7 +42,6 @@ exports.runPDA = function (tokens) {
     }
 
     switch (state) {
-      // ===== START =====
       case "q_start":
         if (token === "{") {
           stack.push("{");
@@ -60,6 +60,7 @@ exports.runPDA = function (tokens) {
         break;
 
       // ===== OBJECT STATES =====
+
       case "q_key": // expecting key or }
         if (token === "}") {
           if (top() !== "{") {
@@ -118,6 +119,7 @@ exports.runPDA = function (tokens) {
         break;
 
       // ===== AFTER VALUE STATES =====
+
       case "q_next_obj":
         if (token === ",") {
           state = "q_key";
@@ -173,7 +175,6 @@ exports.runPDA = function (tokens) {
     if (state === "q_error") break;
   }
 
-  // ===== Final validation =====
   if (stack.length > 0 && state !== "q_error") {
     valid = false;
     error = "Unclosed braces/brackets detected at end of input";
