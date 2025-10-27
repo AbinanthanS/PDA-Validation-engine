@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const decrypt = require('../middleware/decrypt');
-const { validatePayload } = require('../controllers/validationController');
+const decrypt = require('../middleware/decrypt.js');
+const { validatePayload } = require('../controllers/validationController.js');
 
 router.post('/', decrypt, validatePayload);
 
