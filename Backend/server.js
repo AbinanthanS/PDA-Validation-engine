@@ -1,9 +1,9 @@
 const express = require('express');
-const validateRoute = require('./Routes/validate');
+const validateRoute = require('./Routes/validate.js');
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.use(express.text({ type: 'application/json' }));
+app.use(express.json());
 
 app.use('/validate', validateRoute);
 
@@ -18,4 +18,3 @@ app.post('/data',(req,res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
