@@ -1,9 +1,9 @@
-const { runPDA } = require('../PDA-engine/pdaEngine');
-const { tokenize } = require('../Utils/tokenizer');
+const { runPDA } = require('../PDA-engine/pdaEngine.js');
+const { tokenize } = require('../Utils/tokenizer.js');
 
 exports.validatePayload = (req, res) => {
   try {
-    const rawJson = req.body;
+    const rawJson = req.decryptedData || req.body;
     const tokens = tokenize(rawJson);
     const result = runPDA(tokens);
 
