@@ -23,11 +23,22 @@ exports.runPDA = function (tokens) {
 
   const top = () => stack[stack.length - 1];
 
+
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
     const prevState = state;
     const stackBefore = [...stack];
     let action = "";
+
+
+    if (state === "q_accept") {
+      valid = false;
+      error = `Extra content detected after valid JSON structure (unexpected token: ${token})`;
+      state = "q_error";
+      action = `ERROR: ${error}`;
+      recordTransition(token, prevState, state, stackBefore, action, error);
+      break;
+    }
 
     switch (state) {
       // ===== START =====
